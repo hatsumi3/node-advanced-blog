@@ -29,8 +29,34 @@ const BlogModel = mongoose.model("Blog", BlogSchema);
 
 // router
 
-app.get("/", (req, res) => {
-  res.send("hello.");
+app.get("/", async (req, res) => {
+  const allBlogs = await BlogModel.find();
+  console.log(allBlogs);
+  res.send("read all blogs.");
+});
+
+app.get("/blog/:id", async (req, res) => {
+  const singleBlog = await BlogModel.findById(req.params.id);
+  console.log(singleBlog);
+  res.send("kobetu");
+});
+
+app.get("/blog/update/:id", async (req, res) => {
+  const singleBlog = await BlogModel.findById(req.params.id);
+  console.log(singleBlog);
+  res.send("kobetu");
+});
+
+app.post("/blog/update/:id", (req, res) => {
+  BlogModel.updateOne({ _id: req.params.id }, req.body)
+    .then((savedBlogData) => {
+      console.log("success.");
+      res.send("saved.");
+    })
+    .catch((err) => {
+      console.log("failed data write.");
+      res.send("faied.");
+    });
 });
 
 app.get("/blog/create", (req, res) => {
@@ -51,6 +77,24 @@ app.post("/blog/create", (req, res) => {
     })
     .catch((err) => {
       console.log("failed data write.");
+      res.send("faied.");
+    });
+});
+
+app.get("/blog/delete/:id", async (req, res) => {
+  const singleBlog = await BlogModel.findById(req.params.id);
+  console.log(singleBlog);
+  res.send("kobetu");
+});
+
+app.post("/blog/delete/:id", (req, res) => {
+  BlogModel.deleteOne({ _id: req.params.id }, req.body)
+    .then((savedBlogData) => {
+      console.log("success.");
+      res.send("deleted.");
+    })
+    .catch((err) => {
+      console.log("failed data delete.");
       res.send("faied.");
     });
 });
