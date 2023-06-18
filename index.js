@@ -3,6 +3,7 @@ const app = express();
 require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 
 // Mongo DB
 const mongoose = require("mongoose");
@@ -32,13 +33,13 @@ const BlogModel = mongoose.model("Blog", BlogSchema);
 app.get("/", async (req, res) => {
   const allBlogs = await BlogModel.find();
   console.log(allBlogs);
-  res.send("read all blogs.");
+  res.render("index", { allBlogs });
 });
 
 app.get("/blog/:id", async (req, res) => {
   const singleBlog = await BlogModel.findById(req.params.id);
   console.log(singleBlog);
-  res.send("kobetu");
+  res.render("blogRead", { singleBlog });
 });
 
 app.get("/blog/update/:id", async (req, res) => {
