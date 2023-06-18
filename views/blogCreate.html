@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ブログ投稿ページ</title>
+  </head>
+  <body>
+    <h1>ブログ投稿ページ</h1>
+    <form action="/blog/create" method="post">
+      title: <input type="text" name="title" />
+      <br />
+      summary: <input type="text" name="summary" />
+      <br />
+      image: <input type="text" name="image" placeholder="img1.jpg" />
+      <br />
+      main content: <textarea name="textBody" rows="15"></textarea>
+      <br />
+      <button type="submit">submit</button>
+    </form>
+  </body>
+</html>
